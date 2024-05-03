@@ -1,10 +1,6 @@
 PROJECT=libftdispi
 
 CC=gcc
-CFLAGS=-I.
-DEPS = ftdispi.h
-OBJ = ftdispi.o spitest.o
-LIBS= -lftdi
 DESTDIR?=/usr/local/lib
 DESTDIR_H?=/usr/local/include
 
