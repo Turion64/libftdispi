@@ -11,16 +11,9 @@ SPI Supported Modes:
 
 ## Portability
 
-GNU/Linux, MS Windows and potentially all OS where libusb and libftdi are ported to.
-Build
-
-The build system uses SCons (tested with SCons 1.1.0, 1.2.0 & 2.0.1)
-
 Tested build environments:
 
- * Linux 32 & 64,
- * Windows MinGW,
- * Linux MinGW cross compilation (tested only with scons 2.0.1). 
+ * Linux 64
 
 Tested Devices:
 
