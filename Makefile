@@ -1,14 +1,31 @@
 PROJECT=libftdispi
 
-all:
-	@scons
+CC=gcc
+CFLAGS=-I.
+DEPS = ftdispi.h
+OBJ = ftdispi.o spitest.o
+LIBS= -lftdi
+DESTDIR?=/usr/local/lib
+DESTDIR_H?=/usr/local/include
+
+all:	ftdispi.so
+
+ftdispi.so:
+	$(CC) -fpic -shared ftdispi.c -o ftdispi.so -Wall
+
+spitest: spitest.c ftdispi.so
+	$(CC) spitest.c ftdispi.so -I. -lftdi -o spitest
+
+.PHONY: clean
 
 clean:
-	@scons -c
+	find . -name '*.so' -exec rm -r {} \;
+	rm spitest;
 
 
 distclean:
-	@scons -c distclean
+	rm ${DESTDIR}/ftdispi.so;
+	rm ${DESTDIR_H}/ftdispi.h;
 
 
 doc:
@@ -16,7 +33,8 @@ doc:
 	@doxygen share/ftdispi/Doxyfile
 
 install:
-	@scons -Q install
+	cp -n ftdispi.so ${DESTDIR}
+	cp -n ftdispi.h ${DESTDIR_H}
 
 archive:
 	@T=`git tag -l | tail -n 1`; git archive --format=tar --prefix=$(PROJECT)-$${T#v}/ $$T | bzip2 > ../$(PROJECT)-$${T#v}.tar.bz2
